@@ -11,8 +11,9 @@ A simple web application to calculate compound interest and visualize the growth
 ## Demo 🚀
 
 Here’s what the app looks like:
+<img width="894" alt="Screenshot 2024-11-29 at 20 56 07" src="https://github.com/user-attachments/assets/7d4e2d01-4f33-4e0e-ba52-22013c49c73d">
 
-_(Add a screenshot of your app here)_
+<img width="924" alt="Screenshot 2024-11-29 at 20 56 12" src="https://github.com/user-attachments/assets/890d7199-bd49-4339-97a2-94caed9ea8c1">
 
 ---
 
