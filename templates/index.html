@@ -17,6 +17,7 @@
         }
         input {
             width: -webkit-fill-available;
+            font-size: 16px;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -53,29 +54,37 @@
 <body>
     <h1>Compound Interest Calculator</h1>
     <form method="POST" action="/calculate">
-        <label for="principal">Principal Amount (€):</label>
-        <input type="number" id="principal" name="principal" step="0.01" required>
+      <label for="principal">Principal Amount (€):</label>
+      <input type="number" id="principal" name="principal" step="0.01" required>
+  
+      <label for="rate">Annual Interest Rate (%):</label>
+      <input type="number" id="rate" name="rate" step="0.01" required>
+  
+      <label for="years">Number of Years:</label>
+      <input type="number" id="years" name="years" required>
+  
+      <label for="times_per_year">Compounding Times per Year:</label>
+      <input type="number" id="times_per_year" name="times_per_year" required>
+  
+      <label for="annual_contribution">Annual Contribution (€):</label>
+      <input type="number" id="annual_contribution" name="annual_contribution" step="0.01" value="0" required>
 
-        <label for="rate">Annual Interest Rate (%):</label>
-        <input type="number" id="rate" name="rate" step="0.01" required>
-
-        <label for="years">Number of Years:</label>
-        <input type="number" id="years" name="years" required>
-
-        <label for="times_per_year">Compounding Times per Year:</label>
-        <input type="number" id="times_per_year" name="times_per_year" required>
-
-        <button type="submit">Calculate</button>
+      <button type="submit">Calculate</button>
     </form>
+  
 
     {% if amount %}
-    <h2>Results</h2>
-    <p><strong>Total Amount:</strong> €{{ amount }}</p>
-    <p><strong>Compound Interest Earned:</strong> €{{ interest }}</p>
+      <h2>Results</h2>
+      <p><strong>Principal Amount:</strong> €{{ principal }}</p>
+      <p><strong>Annual Interest Rate:</strong> {{ rate }}%</p>
+      <p><strong>Number of Years:</strong> {{ years }}</p>
+      <p><strong>Annual Contribution:</strong> €{{ annual_contribution }}</p>
+      <p><strong>Total Amount:</strong> €{{ amount }}</p>
+      <p><strong>Compound Interest Earned:</strong> €{{ interest }}</p>
     {% endif %}
     {% if graph_available %}
-    <h2>Growth Chart</h2>
-    <img src="/graph" alt="Compound Interest Growth Chart" style="max-width: 100%; height: auto;">
+      <h2>Growth Chart</h2>
+      <img src="/graph" alt="Compound Interest Growth Chart" style="max-width: 100%; height: auto;">
     {% endif %}
 
 

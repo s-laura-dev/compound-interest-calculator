@@ -17,26 +17,39 @@ def home():
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
-    principal = float(request.form["principal"])
-    rate = float(request.form["rate"])
-    years = int(request.form["years"])
-    times_per_year = int(request.form["times_per_year"])
+    try:
+        principal = float(request.form["principal"])
+        rate = float(request.form["rate"])
+        years = int(request.form["years"])
+        times_per_year = int(request.form["times_per_year"])
+        annual_contribution = float(request.form.get("annual_contribution", 0))  # Default to 0 if not provided
+    except KeyError as e:
+        return f"Missing form input: {e}", 400
 
     amounts = []
     for year in range(1, years + 1):
         amount = principal * (1 + (rate / (100 * times_per_year))) ** (times_per_year * year)
+        for i in range(year):
+            amount += annual_contribution * ((1 + (rate / 100)) ** (year - i))
         amounts.append(amount)
 
     session["graph_data"] = {"years": list(range(1, years + 1)), "amounts": amounts}
 
     total_amount = amounts[-1]
-    interest = total_amount - principal
+    interest = total_amount - (principal + annual_contribution * years)
 
     return render_template(
-        "index.html", principal=principal, rate=rate, years=years,
-        times_per_year=times_per_year, amount=round(total_amount, 2),
-        interest=round(interest, 2), graph_available=True
+        "index.html",
+        principal=principal,
+        rate=rate,
+        years=years,
+        times_per_year=times_per_year,
+        annual_contribution=annual_contribution,
+        amount=round(total_amount, 2),
+        interest=round(interest, 2),
+        graph_available=True
     )
+
 
 @app.route("/graph")
 def graph():
